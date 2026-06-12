@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache"
 import { insertarTarea } from "@/lib/tareas-prisma"
+import eliminar from "./page"
 
 export async function crearTarea(formData: FormData) {
   const titulo = formData.get("titulo")
@@ -18,4 +19,14 @@ export async function crearTarea(formData: FormData) {
   await insertarTarea(titulo.trim(), descripcion.trim())
 
   revalidatePath("/gestor-tareas")
+}
+
+export async function eliminarTarea(formData: FormData) {
+    const id = formData.get("id");
+
+    if (id===null){
+      return
+    }
+
+    await eliminar();
 }
